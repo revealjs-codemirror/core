@@ -70,6 +70,15 @@ module.exports = function(grunt) {
         options: {
             specs: [ 'spec/setup_spec.js' ]
         }
+    },
+    generate: {
+      namespace: {
+        src: 'template/namespace.tmpl',
+        dest: 'lib/<%= pkg.name %>.js',
+        options: {
+          data: grunt.file.readJSON('package.json')
+        }
+      }
     }
   });
 
@@ -80,7 +89,32 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
 
+
+  grunt.registerMultiTask('generate', 'generate a file from a template', function(){
+    var files = this.files;
+    var options = this.options({});
+
+    files.forEach(function(f){
+      var src = f.src.filter(function(filepath){
+        if(!grunt.file.exists(filepath)){
+          grunt.log.warn('Source file "' + filepath + '" not found.');
+          return false;
+        } else {
+          return true;
+        }
+      });
+
+      var template = src.map(function(filepath){
+        return grunt.file.read(filepath);
+      }).join(grunt.util.linefeed);
+
+      grunt.file.write(f.dest, grunt.template.process(template, options));
+
+      grunt.log.writeln('Generated "' + f.dest + '"');
+    });
+  });
+
   // Default task.
-  grunt.registerTask('default', ['jshint', 'jasmine', 'concat', 'uglify']);
+  grunt.registerTask('default', ['generate:namespace', 'jshint', 'jasmine', 'concat', 'uglify']);
 
 };
