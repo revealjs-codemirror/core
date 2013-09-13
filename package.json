@@ -15,5 +15,8 @@
   ],
   "author": "Daan van Berkel",
   "license": "MIT",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "grunt": "~0.4.1"
+  }
 }
