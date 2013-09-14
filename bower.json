@@ -20,6 +20,7 @@
     "tests"
   ],
   "dependencies": {
-    "codemirror": "~3.16.0"
+    "codemirror": "~3.16.0",
+    "reveal.js": "~2.5.0"
   }
 }

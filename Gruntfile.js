@@ -69,7 +69,10 @@ module.exports = function(grunt) {
       src: [ 'lib/<%= pkg.name %>.js' ],
         options: {
             specs: [ 'spec/*_spec.js' ],
-            vendor: [ 'bower_components/codemirror/lib/codemirror.js' ],
+            vendor: [
+                'bower_components/codemirror/lib/codemirror.js',
+                'bower_components/reveal.js/js/reveal.min.js',
+            ],
             styles: [ 'bower_components/codemirror/lib/codemirror.css' ]
         }
     },
