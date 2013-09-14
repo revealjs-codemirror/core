@@ -68,7 +68,7 @@ module.exports = function(grunt) {
     jasmine: {
       src: [ 'lib/<%= pkg.name %>.js' ],
         options: {
-            specs: [ 'spec/setup_spec.js' ]
+            specs: [ 'spec/*_spec.js' ]
         }
     },
     generate: {
