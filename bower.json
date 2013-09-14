@@ -1,0 +1,22 @@
+{
+  "name": "revealjs-codemirror-core",
+  "version": "0.0.0",
+  "homepage": "https://github.com/revealjs-codemirror/core",
+  "authors": [
+    "Daan van Berkel <daan.v.berkel.1980@gmail.com>"
+  ],
+  "description": "core plugin of revealjs-codemirror",
+  "main": "dist/revealjs-codemirror-core.min.js",
+  "keywords": [
+    "revealjs",
+    "codemirror"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
