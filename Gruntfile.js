@@ -68,7 +68,9 @@ module.exports = function(grunt) {
     jasmine: {
       src: [ 'lib/<%= pkg.name %>.js' ],
         options: {
-            specs: [ 'spec/*_spec.js' ]
+            specs: [ 'spec/*_spec.js' ],
+            vendor: [ 'bower_components/codemirror/lib/codemirror.js' ],
+            styles: [ 'bower_components/codemirror/lib/codemirror.css' ]
         }
     },
     generate: {
