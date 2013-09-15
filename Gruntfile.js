@@ -73,6 +73,9 @@ module.exports = function(grunt) {
                 'bower_components/codemirror/lib/codemirror.js',
                 'bower_components/reveal.js/js/reveal.min.js',
             ],
+            helpers: [
+                'spec/SpecHelper.js'
+            ],
             styles: [ 'bower_components/codemirror/lib/codemirror.css' ],
             keepRunner: true
         }

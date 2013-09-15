@@ -24,7 +24,7 @@ describe('revealjs-codemirror', function(){
         it('should be transformed on codemirrorify', function(){
             revealjscodemirror.codemirrorify();
 
-            expect(textarea.getAttribute('style')).toBe('display: none; ');
+            expect(textarea).toIncludeStyle('display: none;');
         });
 
         afterEach(function(){
