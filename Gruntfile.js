@@ -17,7 +17,7 @@ module.exports = function(grunt) {
         stripBanners: true
       },
       dist: {
-        src: ['lib/<%= pkg.name %>.js'],
+        src: ['lib/<%= pkg.name %>.js', 'lib/codemirrorify.js'],
         dest: 'dist/<%= pkg.name %>.js'
       }
     },
@@ -66,14 +66,15 @@ module.exports = function(grunt) {
       }
     },
     jasmine: {
-      src: [ 'lib/<%= pkg.name %>.js' ],
+      src: [ 'lib/<%= pkg.name %>.js', 'lib/codemirrorify.js' ],
         options: {
             specs: [ 'spec/*_spec.js' ],
             vendor: [
                 'bower_components/codemirror/lib/codemirror.js',
                 'bower_components/reveal.js/js/reveal.min.js',
             ],
-            styles: [ 'bower_components/codemirror/lib/codemirror.css' ]
+            styles: [ 'bower_components/codemirror/lib/codemirror.css' ],
+            keepRunner: true
         }
     },
     generate: {
