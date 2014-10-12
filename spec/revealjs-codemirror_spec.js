@@ -10,35 +10,52 @@ describe('revealjs-codemirror', function(){
     });
 
     describe('textarea', function(){
-        var textarea_with_code_class;
-        var textarea_without_code_class;
+        describe('without \'code\' class', function(){
+            var textarea;
 
-        beforeEach(function(){
-            textarea_with_code_class = document.createElement('textarea');
-            textarea_with_code_class.setAttribute('class', 'code');
-            fixture.appendChild(textarea_with_code_class);
-            textarea_without_code_class = document.createElement('textarea');
-            fixture.appendChild(textarea_without_code_class);
+            beforeEach(function(){
+                textarea = document.createElement('textarea');
+                fixture.appendChild(textarea);
+            });
+
+            it('should be defined', function(){
+                expect(textarea).toBeDefined();
+            });
+
+            it('should *not* be transformed', function(){
+                revealjscodemirror.codemirrorify();
+
+                expect(textarea).not.toIncludeStyle('display: none;');
+            });
+
+
+            afterEach(function(){
+                textarea.parentNode.removeChild(textarea);
+            });
         });
 
-        it('should be defined', function(){
-            expect(textarea_with_code_class).toBeDefined();
-        });
+        describe('with \'code\' class', function(){
+            var textarea;
 
-        it('should be transformed if it has a class \'code\'', function(){
-            revealjscodemirror.codemirrorify();
+            beforeEach(function(){
+                textarea = document.createElement('textarea');
+                textarea.setAttribute('class', 'code');
+                fixture.appendChild(textarea);
+            });
 
-            expect(textarea_with_code_class).toIncludeStyle('display: none;');
-        });
+            it('should be defined', function(){
+                expect(textarea).toBeDefined();
+            });
 
-        it('should not be transformed if it misses a class \'code\'', function(){
-            revealjscodemirror.codemirrorify();
+            it('should be transformed', function(){
+                revealjscodemirror.codemirrorify();
 
-            expect(textarea_without_code_class).not.toIncludeStyle('display: none;');
-        });
+                expect(textarea).toIncludeStyle('display: none;');
+            });
 
-        afterEach(function(){
-            textarea_with_code_class.parentNode.removeChild(textarea_with_code_class);
+            afterEach(function(){
+                textarea.parentNode.removeChild(textarea);
+            });
         });
     });
 
