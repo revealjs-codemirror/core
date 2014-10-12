@@ -16,9 +16,13 @@ window.revealjscodemirror = (function(){
         return false;
     }
 
+    function createCodeMirror(textarea){
+	CodeMirror.fromTextArea(textarea);
+    }
+
     revealjscodemirror.codemirrorify = function(){
         Array.prototype.slice.call(document.querySelectorAll('textarea'))
             .filter(hasCodeClass)
-            .forEach(CodeMirror.fromTextArea);
+            .forEach(createCodeMirror);
     };
 })(CodeMirror, revealjscodemirror);
