@@ -10,8 +10,7 @@ window.revealjscodemirror = (function(){
 
     function hasCodeClass(domNode){
         if (domNode){
-            var classAttribute = domNode.getAttribute('class');
-            return (classAttribute && classAttribute.indexOf('code') !== -1);
+            return domNode.classList.contains('code');
         }
         return false;
     }
@@ -20,7 +19,7 @@ window.revealjscodemirror = (function(){
         var editor = CodeMirror.fromTextArea(textarea);
         if (textarea.dataset && textarea.dataset.runnable) {
             var run = document.createElement('div');
-            run.setAttribute('class', 'run');
+            run.classList.add('run');
             run.innerText = 'Run';
             editor.getWrapperElement().appendChild(run);
         }
