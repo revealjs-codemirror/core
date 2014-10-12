@@ -5,7 +5,7 @@ window.revealjscodemirror = (function(){
     version: '0.0.0'
   };
 })();
-(function(CodeMirror, revealjscodemirror){
+(function(document, CodeMirror, revealjscodemirror){
     'use strict';
 
     function hasCodeClass(domNode){
@@ -17,7 +17,13 @@ window.revealjscodemirror = (function(){
     }
 
     function createCodeMirror(textarea){
-	CodeMirror.fromTextArea(textarea);
+        var editor = CodeMirror.fromTextArea(textarea);
+        if (textarea.dataset && textarea.dataset.runnable) {
+            var run = document.createElement('div');
+            run.setAttribute('class', 'run');
+            run.innerText = 'Run';
+            editor.getWrapperElement().appendChild(run);
+        }
     }
 
     revealjscodemirror.codemirrorify = function(){
@@ -25,4 +31,4 @@ window.revealjscodemirror = (function(){
             .filter(hasCodeClass)
             .forEach(createCodeMirror);
     };
-})(CodeMirror, revealjscodemirror);
+})(document, CodeMirror, revealjscodemirror);

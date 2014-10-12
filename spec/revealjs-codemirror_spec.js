@@ -26,6 +26,7 @@ describe('revealjs-codemirror', function(){
                 revealjscodemirror.codemirrorify();
 
                 expect(textarea).not.toIncludeStyle('display: none;');
+                expect(document.getElementsByClassName('CodeMirror').length).toBe(0);
             });
 
 
@@ -35,26 +36,63 @@ describe('revealjs-codemirror', function(){
         });
 
         describe('with \'code\' class', function(){
-            var textarea;
+            describe('without \'runnable\' data attribute', function(){
+                var textarea;
 
-            beforeEach(function(){
-                textarea = document.createElement('textarea');
-                textarea.setAttribute('class', 'code');
-                fixture.appendChild(textarea);
+                beforeEach(function(){
+                    textarea = document.createElement('textarea');
+                    textarea.setAttribute('class', 'code');
+                    fixture.appendChild(textarea);
+                });
+
+                it('should be defined', function(){
+                    expect(textarea).toBeDefined();
+                });
+
+                it('should be transformed', function(){
+                    revealjscodemirror.codemirrorify();
+
+                    expect(textarea).toIncludeStyle('display: none;');
+                    expect(document.getElementsByClassName('CodeMirror').length).toBe(1);
+                });
+
+                afterEach(function(){
+                    textarea.parentNode.removeChild(textarea);
+                });
             });
 
-            it('should be defined', function(){
-                expect(textarea).toBeDefined();
-            });
+            describe('with \'runnable\' data attribute set to \'true\'', function(){
+                var textarea;
 
-            it('should be transformed', function(){
-                revealjscodemirror.codemirrorify();
+                beforeEach(function(){
+                    textarea = document.createElement('textarea');
+                    textarea.setAttribute('class', 'code');
+                    textarea.dataset.runnable = true;
+                    fixture.appendChild(textarea);
+                });
 
-                expect(textarea).toIncludeStyle('display: none;');
-            });
+                it('should be defined', function(){
+                    expect(textarea).toBeDefined();
+                });
 
-            afterEach(function(){
-                textarea.parentNode.removeChild(textarea);
+                it('should be transformed', function(){
+                    revealjscodemirror.codemirrorify();
+
+                    expect(textarea).toIncludeStyle('display: none;');
+                    expect(document.getElementsByClassName('CodeMirror').length).toBe(1);
+                });
+
+                it('should have added run button to CodeMirror', function(){
+                    revealjscodemirror.codemirrorify();
+
+                    var codeMirror = document.getElementsByClassName('CodeMirror')[0];
+
+                    expect(codeMirror.getElementsByClassName('run').length).toBe(1);
+                });
+
+                afterEach(function(){
+                    textarea.parentNode.removeChild(textarea);
+                });
             });
         });
     });
