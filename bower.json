@@ -21,6 +21,7 @@
   ],
   "dependencies": {
     "codemirror": "~3.16.0",
-    "reveal.js": "~2.5.0"
+    "reveal.js": "~2.5.0",
+    "q": "~1.0.1"
   }
 }
