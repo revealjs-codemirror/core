@@ -70,6 +70,7 @@ module.exports = function(grunt) {
         options: {
             specs: [ 'spec/*_spec.js' ],
             vendor: [
+                'bower_components/q/q.js',
                 'bower_components/codemirror/lib/codemirror.js',
                 'bower_components/reveal.js/js/reveal.min.js',
             ],
