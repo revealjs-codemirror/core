@@ -90,6 +90,22 @@ describe('revealjs-codemirror', function(){
                     expect(codeMirror.getElementsByClassName('run').length).toBe(1);
                 });
 
+                it('should have added clear button to CodeMirror', function(){
+                    revealjscodemirror.codemirrorify();
+
+                    var codeMirror = document.getElementsByClassName('CodeMirror')[0];
+
+                    expect(codeMirror.getElementsByClassName('clear').length).toBe(1);
+                });
+
+                it('should have added log area to CodeMirror', function(){
+                    revealjscodemirror.codemirrorify();
+
+                    var codeMirror = document.getElementsByClassName('CodeMirror')[0];
+
+                    expect(codeMirror.getElementsByClassName('log').length).toBe(1);
+                });
+
                 afterEach(function(){
                     textarea.parentNode.removeChild(textarea);
                 });

@@ -22,6 +22,15 @@ window.revealjscodemirror = (function(){
             run.classList.add('run');
             run.innerText = 'Run';
             editor.getWrapperElement().appendChild(run);
+
+            var clear = document.createElement('div');
+            clear.classList.add('clear');
+            clear.innerText = 'Clear';
+            editor.getWrapperElement().appendChild(clear);
+
+            var log = document.createElement('div');
+            log.classList.add('log');
+            editor.getWrapperElement().appendChild(log);
         }
     }
 
