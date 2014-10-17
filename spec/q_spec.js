@@ -25,5 +25,14 @@ describe('q', function(){
 
 			deferred.resolve(true);
 		});
+
+		it('should reject', function(done){
+			promise.catch(function(){
+				expect(true).toBeTruthy();
+				done();
+			});
+
+			deferred.reject(new Error());
+		});
 	});
 });
