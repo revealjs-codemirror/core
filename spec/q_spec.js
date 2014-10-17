@@ -1,3 +1,4 @@
+/*global describe, it, expect, Q, beforeEach */
 describe('q', function(){
 	it('should be defined', function(){
 		expect(Q).toBeDefined();

@@ -1,4 +1,4 @@
-/*! revealjs-codemirror-core - v0.0.0 - 2014-10-12
+/*! revealjs-codemirror-core - v0.0.0 - 2014-10-17
 * Copyright (c) 2014 ; Licensed MIT */
 window.revealjscodemirror = (function(){
   return {
