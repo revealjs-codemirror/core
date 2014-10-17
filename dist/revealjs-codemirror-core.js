@@ -18,19 +18,18 @@ window.revealjscodemirror = (function(){
     function createCodeMirror(textarea){
         var editor = CodeMirror.fromTextArea(textarea);
         if (textarea.dataset && textarea.dataset.runnable) {
-            var run = document.createElement('div');
-            run.classList.add('run');
-            run.innerText = 'Run';
-            editor.getWrapperElement().appendChild(run);
-
-            var clear = document.createElement('div');
-            clear.classList.add('clear');
-            clear.innerText = 'Clear';
-            editor.getWrapperElement().appendChild(clear);
-
-            var log = document.createElement('div');
-            log.classList.add('log');
-            editor.getWrapperElement().appendChild(log);
+			[
+				{ element: 'div', class: 'run', innerText: 'Run' },
+				{ element: 'div', class: 'clear', innerText: 'Clear' },
+				{ element: 'div', class: 'log' },
+			].forEach(function(description){
+				var element = document.createElement(description.element);
+				element.classList.add(description.class);
+				if (description.innerText) {
+					element.innerText = description.innerText;
+				}
+				editor.getWrapperElement().appendChild(element);
+			});
         }
     }
 
