@@ -66,7 +66,7 @@ module.exports = function(grunt) {
       }
     },
     jasmine: {
-      src: [ 'lib/<%= pkg.name %>.js', 'lib/codemirrorify.js' ],
+      src: [ 'lib/<%= pkg.name %>.js', 'lib/log.js', 'lib/codemirrorify.js' ],
         options: {
             specs: [ 'spec/*_spec.js' ],
             vendor: [
