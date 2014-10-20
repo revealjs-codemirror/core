@@ -34,7 +34,10 @@ window.revealjscodemirror = (function(){
         if (textarea.dataset && textarea.dataset.runnable) {
 			[
 				{ element: 'div', class: 'run', innerText: 'Run', handler: createRunHandler(textarea, options) },
-				{ element: 'div', class: 'clear', innerText: 'Clear' },
+				{ element: 'div', class: 'clear', innerText: 'Clear', handler: function(){
+                    var log = this.getWrapperElement().getElementsByClassName('log')[0];
+                    log.innerText = '';
+                } },
 				{ element: 'div', class: 'log' },
 			].forEach(function(description){
 				var element = document.createElement(description.element);
@@ -43,7 +46,7 @@ window.revealjscodemirror = (function(){
 					element.innerText = description.innerText;
 				}
                 if (description.handler) {
-                    element.onclick = description.handler;
+                    element.onclick = description.handler.bind(editor);
                 }
 				editor.getWrapperElement().appendChild(element);
 			});

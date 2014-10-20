@@ -112,12 +112,26 @@ describe('revealjs-codemirror', function(){
                     });
                 });
 
-                it('should have added clear button to CodeMirror', function(){
-                    revealjscodemirror.codemirrorify();
+                describe('clear button', function(){
+                    it('should have added to CodeMirror', function(){
+                        revealjscodemirror.codemirrorify();
 
-                    var codeMirror = document.getElementsByClassName('CodeMirror')[0];
+                        var codeMirror = document.getElementsByClassName('CodeMirror')[0];
 
-                    expect(codeMirror.getElementsByClassName('clear').length).toBe(1);
+                        expect(codeMirror.getElementsByClassName('clear').length).toBe(1);
+                    });
+
+                    it('should clear the log', function(){
+                        revealjscodemirror.codemirrorify();
+                        var codeMirror = document.getElementsByClassName('CodeMirror')[0];
+                        var log = codeMirror.getElementsByClassName('log')[0];
+                        log.innerText = 'Some Text';
+
+                        var clear = codeMirror.getElementsByClassName('clear')[0];
+                        clear.onclick();
+
+                        expect(log.innerText).toBe('');
+                    });
                 });
 
                 it('should have added log area to CodeMirror', function(){
