@@ -82,12 +82,34 @@ describe('revealjs-codemirror', function(){
                     expect(document.getElementsByClassName('CodeMirror').length).toBe(1);
                 });
 
-                it('should have added run button to CodeMirror', function(){
-                    revealjscodemirror.codemirrorify();
 
-                    var codeMirror = document.getElementsByClassName('CodeMirror')[0];
+                describe('run button', function(){
+                    var content;
 
-                    expect(codeMirror.getElementsByClassName('run').length).toBe(1);
+                    beforeEach(function(){
+                        textarea.value = content = 'console.log(\'Hello World!\');';
+                    });
+
+                    it('should be added', function(){
+                        revealjscodemirror.codemirrorify();
+
+                        var codeMirror = document.getElementsByClassName('CodeMirror')[0];
+
+                        expect(codeMirror.getElementsByClassName('run').length).toBe(1);
+                    });
+
+                    it('should have an onclick', function(done){
+                        revealjscodemirror.codemirrorify({
+                            runHandler: function(value){
+                                expect(value).toBe(content);
+                                done();
+                            }
+                        });
+                        var codeMirror = document.getElementsByClassName('CodeMirror')[0];
+
+                        var button = codeMirror.getElementsByClassName('run')[0];
+                        button.onclick();
+                    });
                 });
 
                 it('should have added clear button to CodeMirror', function(){
