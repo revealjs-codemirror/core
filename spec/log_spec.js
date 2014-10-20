@@ -1,6 +1,45 @@
-/*global describe:false, it:false, expect:false, revealjscodemirror: false */
+/*global describe:false, it:false, expect:false, beforeEach:false, revealjscodemirror: false */
 describe('Log', function(){
     it('should be defined', function(){
         expect(revealjscodemirror.Log).toBeDefined();
+    });
+
+    describe('methods', function(){
+        var log;
+
+        beforeEach(function(){
+            log = new revealjscodemirror.Log();
+        });
+
+        describe('lines', function(){
+            it('should start out empty', function(){
+                expect(log.lines()).toEqual([]);
+            });
+        });
+
+        describe('append', function(){
+            var message;
+
+            beforeEach(function(){
+                message = 'Hello World!';
+            });
+
+            it('should append lines', function(){
+                log.append(message);
+
+                expect(log.lines().length).toBe(1);
+                expect(log.lines()[0]).toBe(message);
+            });
+        });
+
+        describe('clear', function(){
+            it('should clear append lines', function(){
+                log.append('Throw away');
+
+                log.clear();
+
+                expect(log.lines()).toEqual([]);
+            });
+        });
     });
 });
