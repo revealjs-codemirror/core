@@ -41,5 +41,16 @@ describe('Log', function(){
                 expect(log.lines()).toEqual([]);
             });
         });
+
+        describe('notification', function(){
+            it('should add and notify listeners', function(done){
+                log.addListener(function(){
+                    expect(this).toBe(log);
+                    done();
+                });
+
+                log.notify();
+            });
+        });
     });
 });
