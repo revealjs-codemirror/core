@@ -17,7 +17,7 @@ module.exports = function(grunt) {
         stripBanners: true
       },
       dist: {
-        src: ['lib/<%= pkg.name %>.js', 'lib/codemirrorify.js'],
+        src: ['lib/<%= pkg.name %>.js', 'lib/log.js', 'lib/codemirrorify.js'],
         dest: 'dist/<%= pkg.name %>.js'
       }
     },
