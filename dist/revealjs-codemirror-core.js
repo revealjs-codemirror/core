@@ -59,8 +59,8 @@ window.revealjscodemirror = (function(){
         var editor = CodeMirror.fromTextArea(textarea, options);
         if (textarea.dataset && textarea.dataset.runnable) {
 			[
-				{ element: 'div', class: 'run', innerText: 'Run', handler: createRunHandler(textarea, options) },
-				{ element: 'div', class: 'clear', innerText: 'Clear', handler: function(){
+				{ element: 'div', class: 'run', innerText: 'Run', onclick: createRunHandler(textarea, options) },
+				{ element: 'div', class: 'clear', innerText: 'Clear', onclick: function(){
                     var log = this.getWrapperElement().getElementsByClassName('log')[0];
                     log.innerText = '';
                 } },
@@ -71,8 +71,8 @@ window.revealjscodemirror = (function(){
 				if (description.innerText) {
 					element.innerText = description.innerText;
 				}
-                if (description.handler) {
-                    element.onclick = description.handler.bind(editor);
+                if (description.onclick) {
+                    element.onclick = description.onclick.bind(editor);
                 }
                 return element;
 			}).forEach(function(element){
