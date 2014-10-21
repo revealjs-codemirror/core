@@ -17,9 +17,11 @@ window.revealjscodemirror = (function(){
     };
     Log.prototype.append = function(line){
         this._lines.push(line);
+        this.notify();
     };
     Log.prototype.clear = function(){
         this._lines = [];
+        this.notify();
     };
     Log.prototype.addListener = function(listener){
         this._listeners.push(listener);
@@ -65,6 +67,9 @@ window.revealjscodemirror = (function(){
             if (description.onclick) {
                 element.onclick = description.onclick.bind(editor);
             }
+            if (description.afterCreate) {
+                description.afterCreate(element);
+            }
             return element;
         };
     }
@@ -72,14 +77,23 @@ window.revealjscodemirror = (function(){
     function createCodeMirror(textarea, options){
         var editor = CodeMirror.fromTextArea(textarea, options);
         var createElement = createElementFactory(editor);
+        var log = new revealjscodemirror.Log();
         if (textarea.dataset && textarea.dataset.runnable) {
             [
                 { element: 'div', class: 'run', innerText: 'Run', onclick: createRunOnclick(textarea, options) },
-                { element: 'div', class: 'clear', innerText: 'Clear', onclick: function(){
-                    var log = this.getWrapperElement().getElementsByClassName('log')[0];
-                    log.innerText = '';
+                { element: 'div', class: 'clear', innerText: 'Clear', onclick: log.clear.bind(log) },
+                { element: 'div', class: 'log', afterCreate: function(element){
+                    log.addListener(function(){
+                        while(element.firstChild) {
+                            element.removeChild(element.firstChild);
+                        }
+                        log.lines().forEach(function(line){
+                            var p = document.createElement('p');
+                            p.innerText = line;
+                            element.appendChild(p);
+                        });
+                    });
                 } },
-                { element: 'div', class: 'log' },
             ].map(createElement).forEach(function(element){
                 editor.getWrapperElement().appendChild(element);
             });
