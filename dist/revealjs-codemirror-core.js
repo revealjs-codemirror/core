@@ -43,18 +43,18 @@ window.revealjscodemirror = (function(){
         return false;
     }
 
-    function createRunOnclick(textarea, options){
-        var runHandler = function(){
+    function createRunOnclick(textarea, log, options){
+        var runHandler = function(value){
             var deferred = Q.defer();
-            deferred.resolve(textarea.value);
-            return deferred.promise();
+            deferred.resolve([value.split('\n')]);
+            return deferred.promise;
         };
         if (options && options.runHandler) {
-            runHandler = function(){
-                return options.runHandler(textarea.value);
-            };
+            runHandler = options.runHandler;
         }
-        return runHandler;
+        runHandler(textarea.value).then(function(lines){
+            lines.forEach(function(line){ log.append(line); });
+        }).done();
     }
 
     function createElementFactory(editor) {
@@ -80,7 +80,7 @@ window.revealjscodemirror = (function(){
         var log = new revealjscodemirror.Log();
         if (textarea.dataset && textarea.dataset.runnable) {
             [
-                { element: 'div', class: 'run', innerText: 'Run', onclick: createRunOnclick(textarea, options) },
+                { element: 'div', class: 'run', innerText: 'Run', onclick: createRunOnclick(textarea, log, options) },
                 { element: 'div', class: 'clear', innerText: 'Clear', onclick: log.clear.bind(log) },
                 { element: 'div', class: 'log', afterCreate: function(element){
                     log.addListener(function(){
