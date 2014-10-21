@@ -55,28 +55,33 @@ window.revealjscodemirror = (function(){
         return runHandler;
     }
 
+    function createElementFactory(editor) {
+        return function createElement(description) {
+            var element = document.createElement(description.element);
+            element.classList.add(description.class);
+            if (description.innerText) {
+                element.innerText = description.innerText;
+            }
+            if (description.onclick) {
+                element.onclick = description.onclick.bind(editor);
+            }
+            return element;
+        };
+    }
+
     function createCodeMirror(textarea, options){
         var editor = CodeMirror.fromTextArea(textarea, options);
+        var createElement = createElementFactory(editor);
         if (textarea.dataset && textarea.dataset.runnable) {
-			[
-				{ element: 'div', class: 'run', innerText: 'Run', onclick: createRunHandler(textarea, options) },
-				{ element: 'div', class: 'clear', innerText: 'Clear', onclick: function(){
+            [
+                { element: 'div', class: 'run', innerText: 'Run', onclick: createRunHandler(textarea, options) },
+                { element: 'div', class: 'clear', innerText: 'Clear', onclick: function(){
                     var log = this.getWrapperElement().getElementsByClassName('log')[0];
                     log.innerText = '';
                 } },
-				{ element: 'div', class: 'log' },
-			].map(function(description){
-				var element = document.createElement(description.element);
-				element.classList.add(description.class);
-				if (description.innerText) {
-					element.innerText = description.innerText;
-				}
-                if (description.onclick) {
-                    element.onclick = description.onclick.bind(editor);
-                }
-                return element;
-			}).forEach(function(element){
-				editor.getWrapperElement().appendChild(element);
+                { element: 'div', class: 'log' },
+            ].map(createElement).forEach(function(element){
+                editor.getWrapperElement().appendChild(element);
             });
         }
     }
@@ -85,7 +90,7 @@ window.revealjscodemirror = (function(){
         Array.prototype.slice.call(document.querySelectorAll('textarea'))
             .filter(hasCodeClass)
             .forEach(function(textarea){
-				createCodeMirror(textarea, options);
-			});
+                createCodeMirror(textarea, options);
+            });
     };
 })(document, CodeMirror, Q, revealjscodemirror);
