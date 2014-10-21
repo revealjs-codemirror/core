@@ -1,4 +1,4 @@
-/*global describe:false, it:false, beforeEach:false, afterEach:false, expect:false, document:false, revealjscodemirror: false */
+/*global describe:false, it:false, beforeEach:false, afterEach:false, expect:false, document:false, Q:false, revealjscodemirror: false */
 describe('revealjs-codemirror', function(){
     var fixture;
 
@@ -109,6 +109,26 @@ describe('revealjs-codemirror', function(){
 
                         var button = codeMirror.getElementsByClassName('run')[0];
                         button.onclick();
+                    });
+
+                    it('should return a promise of the evaluated behavior', function(done){
+                        var deferred = Q.defer();
+                        revealjscodemirror.codemirrorify({
+                            runHandler: function(){
+                                return deferred.promise;
+                            }
+                        });
+                        var codeMirror = document.getElementsByClassName('CodeMirror')[0];
+
+                        var button = codeMirror.getElementsByClassName('run')[0];
+                        button.onclick();
+                        deferred.resolve(['message']);
+
+                        deferred.promise.then(function(){
+                            var log = codeMirror.getElementsByClassName('log')[0];
+                            expect(log.innerText).toBe('message');
+                            done();
+                        });
                     });
                 });
 

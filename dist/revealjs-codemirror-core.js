@@ -52,9 +52,11 @@ window.revealjscodemirror = (function(){
         if (options && options.runHandler) {
             runHandler = options.runHandler;
         }
-        runHandler(textarea.value).then(function(lines){
-            lines.forEach(function(line){ log.append(line); });
-        }).done();
+        return function(){
+            runHandler(textarea.value).then(function(lines){
+                lines.forEach(function(line){ log.append(line); });
+            }).done();
+        };
     }
 
     function createElementFactory(editor) {
