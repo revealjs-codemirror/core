@@ -41,7 +41,7 @@ window.revealjscodemirror = (function(){
         return false;
     }
 
-    function createRunHandler(textarea, options){
+    function createRunOnclick(textarea, options){
         var runHandler = function(){
             var deferred = Q.defer();
             deferred.resolve(textarea.value);
@@ -74,7 +74,7 @@ window.revealjscodemirror = (function(){
         var createElement = createElementFactory(editor);
         if (textarea.dataset && textarea.dataset.runnable) {
             [
-                { element: 'div', class: 'run', innerText: 'Run', onclick: createRunHandler(textarea, options) },
+                { element: 'div', class: 'run', innerText: 'Run', onclick: createRunOnclick(textarea, options) },
                 { element: 'div', class: 'clear', innerText: 'Clear', onclick: function(){
                     var log = this.getWrapperElement().getElementsByClassName('log')[0];
                     log.innerText = '';
