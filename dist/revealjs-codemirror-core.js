@@ -65,7 +65,7 @@ window.revealjscodemirror = (function(){
                     log.innerText = '';
                 } },
 				{ element: 'div', class: 'log' },
-			].forEach(function(description){
+			].map(function(description){
 				var element = document.createElement(description.element);
 				element.classList.add(description.class);
 				if (description.innerText) {
@@ -74,8 +74,10 @@ window.revealjscodemirror = (function(){
                 if (description.handler) {
                     element.onclick = description.handler.bind(editor);
                 }
+                return element;
+			}).forEach(function(element){
 				editor.getWrapperElement().appendChild(element);
-			});
+            });
         }
     }
 
